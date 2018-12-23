@@ -25,10 +25,9 @@ public class SyainSeibetsuDAO extends DBConnection{
 		conn = super.connectionDB(conn);
 		
 		//SELECT文を準備
-		String sql = "select id ,name,seibetsu from meibo;";
-//		StringBuilder sql = new StringBuilder();
-//		sql.append("SELECT id,name,seibetsu");
-//		sql.append("FROM meibo");
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT id,name,seibetsu");
+		sql.append(" FROM meibo;");
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql.toString());
 		

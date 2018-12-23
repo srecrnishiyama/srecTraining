@@ -28,21 +28,16 @@ public class SyainJouhouAllDAO extends DBConnection{
 		conn = super.connectionDB(conn);
 		
 		//SELECT文を準備
-//		StringBuilder sql = new StringBuilder();
-//		
-//		sql.append("SELECT m.id,m.name,m.yomigana,m.seibetsu,j.syussin,j.juusyo,j.teate,t.job,t.salary,t.nyuusya,t.kinzoku"); 
-//		sql.append(" FROM meibo m");
-//		sql.append(" INNER JOIN juusyo j");
-//		sql.append(" ON m.id = j.id");
-//		sql.append(" INNER JOIN taiguu t");
-//		sql.append(" ON t.id = j.id;");
+		StringBuilder sql = new StringBuilder();
 		
-		String sql = "SELECT m.id,m.name,m.yomigana,m.seibetsu,j.syussin,j.juusyo,j.teate,t.job,t.salary,t.nyuusya,"
-				+ "t.kinzoku FROM meibo m INNER JOIN juusyo j ON m.id = j.id INNER JOIN taiguu t ON t.id = j.id;";
+		sql.append("SELECT m.id,m.name,m.yomigana,m.seibetsu,j.syussin,j.juusyo,j.teate,t.job,t.salary,t.nyuusya,t.kinzoku"); 
+		sql.append(" FROM meibo m");
+		sql.append(" INNER JOIN juusyo j");
+		sql.append(" ON m.id = j.id");
+		sql.append(" INNER JOIN taiguu t");
+		sql.append(" ON t.id = j.id;");
 		
 		PreparedStatement pStmt = conn.prepareStatement(sql.toString());
-		
-        System.out.println(sql);
 		
 		//SELECTを実行し、結果表を取得
 		ResultSet rs = pStmt.executeQuery();

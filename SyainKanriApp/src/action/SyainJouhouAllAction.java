@@ -18,25 +18,20 @@ import control.SyainJouhouAllDAO;
 public class SyainJouhouAllAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//メイン画面に遷移
-		RequestDispatcher dispatcher = request.getRequestDispatcher(Path.MAIN_GAMEN);
-		dispatcher.forward(request,response);
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-				//リクエストスコープにインスタンスを保存
-				SyainJouhouAllDAO syainJouhouAllDAO = new SyainJouhouAllDAO();
-				List<SyainJouhouAllEntity> syainJouhouAllEntityList = syainJouhouAllDAO.findAll(syainJouhouAllDAO);
-				request.setAttribute(Path.SYAIN_JOUHOU_ALL_SCOPE, syainJouhouAllEntityList);
-				
-				System.out.println("test");
-				
-				//結果出力画面(Result.jsp)にフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher(Path.SYAIN_JOUHOU_ALL_PATH);
-				dispatcher.forward(request, response);
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		// リクエストスコープにインスタンスを保存
+		SyainJouhouAllDAO syainJouhouAllDAO = new SyainJouhouAllDAO();
+		List<SyainJouhouAllEntity> syainJouhouAllEntityList = syainJouhouAllDAO
+				.findAll(syainJouhouAllDAO);
+		request.setAttribute(Path.SYAIN_JOUHOU_ALL_SCOPE,
+				syainJouhouAllEntityList);
+
+		// 結果出力画面(Result.jsp)にフォワード
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher(Path.SYAIN_JOUHOU_ALL_PATH);
+		dispatcher.forward(request, response);
 
 	}
 }

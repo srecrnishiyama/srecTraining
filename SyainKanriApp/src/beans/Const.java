@@ -16,6 +16,7 @@ public class Const {
 	public static final class Path{
 		
 		public static final String MAIN_GAMEN = "/index.jsp";
+		public static final String ERROR_GAMEN = "/error.jsp";
 		public static final String MAIN_GAMEN_PATH = "/SyainKanriApp/index.jsp";
 		public static final String SYAIN_JOUHOU_ALL_PATH = "/WEB-INF/ResultSyainJouhouAll.jsp";
 		public static final String SYAIN_JOUHOU_ALL_SCOPE = "syainJouhouAllEntityList";
