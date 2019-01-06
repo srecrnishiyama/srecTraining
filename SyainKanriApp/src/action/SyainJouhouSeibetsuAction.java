@@ -23,7 +23,7 @@ public class SyainJouhouSeibetsuAction extends HttpServlet {
 		// リクエストスコープにインスタンスを保存
 		SyainSeibetsuDAO syainSeibetsuDAO = new SyainSeibetsuDAO();
 		List<SyainSeibetsuEntity> syainSeibetsuEntityList = syainSeibetsuDAO
-				.findAll(syainSeibetsuDAO);
+				.findSeibetsu(syainSeibetsuDAO);
 		request.setAttribute(Path.SEIBETSU_SCOPE, syainSeibetsuEntityList);
 
 		// 結果出力画面(Result.jsp)にフォワード

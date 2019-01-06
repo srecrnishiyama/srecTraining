@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Const.Path;
-import control.IndexDAO;
+import control.CheckLogin;
 
 /**
  * Servlet implementation class IndexAction
@@ -39,6 +39,7 @@ public class IndexAction extends HttpServlet {
 		id = request.getParameter("id");
 		password = request.getParameter("password");
 		
+		//IDが入力されていない場合、エラー画面に遷移
 		if(id == null || "".equals(id)){
 			// エラー画面に遷移
 			RequestDispatcher dispatcher = request
@@ -47,6 +48,7 @@ public class IndexAction extends HttpServlet {
 			return;
 		}
 		
+		//パスワードが入力されていない場合、エラー画面に遷移
 		if(password == null || "".equals(password)){
 			// エラー画面に遷移
 			RequestDispatcher dispatcher = request
@@ -55,12 +57,23 @@ public class IndexAction extends HttpServlet {
 			return;
 		}
 		
-		boolean errorFlg;
+		boolean errorFlg; //ログインIDパスワード存在チェック用 true = 存在 false = 存在しない
+		
+		CheckLogin checkLogin = new CheckLogin();
+		
+		errorFlg = checkLogin.checkLoginId(id);
+		
+		// ログインIDが存在しない場合はエラー画面に遷移
+		if (errorFlg == false){
+			// エラー画面に遷移
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher(Path.ERROR_GAMEN);
+			dispatcher.forward(request, response);
+		}
+		
+		errorFlg = checkLogin.checkLoginIdAndPassword(id, password);
 
-		IndexDAO indexDao = new IndexDAO();
-		errorFlg = indexDao.checkLoginId(id,password);
-
-		// ログインIDとパスワードがテーブルに存在しない場合はエラー画面に遷移
+		// ログインIDとパスワードが一致しない場合はエラー画面に遷移
 		if (errorFlg == false) {
 			// エラー画面に遷移
 			RequestDispatcher dispatcher = request
