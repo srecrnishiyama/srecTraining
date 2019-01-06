@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static beans.Const.DBConst;
+import beans.Const.DBConst;
 
 public class DBConnection {
 	
@@ -26,6 +26,18 @@ public class DBConnection {
 		}
 		
 		return conn;
+	}
+	
+	public static void closeDB(Connection conn){
+		//データベース切断
+		if(conn != null){
+			try{
+				conn.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+
+			}
+		}
 	}
 
 }

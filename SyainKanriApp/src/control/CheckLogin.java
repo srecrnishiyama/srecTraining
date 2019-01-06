@@ -1,56 +1,46 @@
 package control;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CheckLogin extends DBConnection {
 
-	public boolean checkLoginId(Connection conn,String pLoginId) {
+	// ログインID存在チェック用
+	public boolean checkLoginId(String pLoginId) {
 
-		super.loadJDBCDriver();
+		boolean result = false;
 
-		StringBuilder sql = new StringBuilder();
+		IndexDAO indexDAO = new IndexDAO();
 
-		sql.append("SELECT loginid");
-		sql.append(" FROM login");
-		sql.append(" WHERE loginid = ?;");
-
-		try {
-			PreparedStatement pStmt = conn.prepareStatement(sql.toString());
-
-			pStmt.setString(1, pLoginId);
-			
-			ResultSet rs = pStmt.executeQuery();
-			
-			String id = null;
-			
-			while(rs.next()){
-				
-				id = rs.getString("loginid");
-				
-			}
-			
-			if(id != "" && !(id.equals(null))){
-				return true;
-			}else
-				return false;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+		// IDがDB内に存在しなかった場合エラー画面に遷移
+		if (!(indexDAO.findLoginId(pLoginId) == null)) {
+			result = true;
 		}
+
+		return result;
 
 	}
 
-	public boolean checkPassword(String pLoginId, String pLoginPassword) {
+	// ログインパスワードとIDの紐づきチェック用
+	public boolean checkLoginIdAndPassword(String pLoginId,
+			String pLoginPassword) {
 
-		String loginId;
-		String loginPassword;
+		boolean result = false;
 
-		return true;
+		IndexDAO indexDAO = new IndexDAO();
 
+		// 入力したパスワードがDB内のパスワードと異なる場合エラー画面に遷移
+		List<String> loginIdPassList = new ArrayList<String>();
+		loginIdPassList.add(pLoginId);
+		loginIdPassList.add(pLoginPassword);
+
+		if (indexDAO.findLoginIdAndPassword(pLoginId, pLoginPassword).equals(
+				loginIdPassList)) {
+
+			result = true;
+		}
+
+		return result;
 	}
 
 }

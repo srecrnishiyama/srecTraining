@@ -11,7 +11,7 @@ import beans.SyainSeibetsuEntity;
 
 public class SyainSeibetsuDAO extends DBConnection{
 	
-	public List<SyainSeibetsuEntity> findAll(SyainSeibetsuDAO syainKanriDAO){
+	public List<SyainSeibetsuEntity> findSeibetsu(SyainSeibetsuDAO syainKanriDAO){
 	
 	List<SyainSeibetsuEntity> syainSeibetsuEntityList = new ArrayList<SyainSeibetsuEntity>();
 	
