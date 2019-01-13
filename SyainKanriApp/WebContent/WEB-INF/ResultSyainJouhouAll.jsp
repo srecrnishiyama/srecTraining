@@ -5,7 +5,9 @@
 
 <%
 	//リクエストスコープに保存されたユーザー情報を取得
-	List<SyainJouhouAllEntity> syainJouhouAllEntityList = (List<SyainJouhouAllEntity>)request.getAttribute(Path.SYAIN_JOUHOU_ALL_SCOPE);
+	//List<SyainJouhouAllEntity> syainJouhouAllEntityList = (List<SyainJouhouAllEntity>)request.getAttribute(Path.SYAIN_JOUHOU_ALL_SCOPE);
+    //セッションスコープに保存されたユーザー情報を取得
+    List<SyainJouhouAllEntity> syainJouhouAllEntityList = (List<SyainJouhouAllEntity>)request.getAttribute(Path.SESSION_SCOPE_NAME);
 %>
 
 <!DOCTYPE html>

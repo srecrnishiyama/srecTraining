@@ -5,7 +5,9 @@
 
 <%
 	//リクエストスコープに保存されたユーザー情報を取得
-	List<SyainSeibetsuEntity> syainSeibetsuEntityList = (List<SyainSeibetsuEntity>)request.getAttribute(Path.SEIBETSU_SCOPE);
+	//List<SyainSeibetsuEntity> syainSeibetsuEntityList = (List<SyainSeibetsuEntity>)request.getAttribute(Path.SEIBETSU_SCOPE);
+	//セッションスコープに保存されたユーザー情報を取得
+	List<SyainSeibetsuEntity> syainSeibetsuEntityList = (List<SyainSeibetsuEntity>)request.getAttribute("session");
 %>
 
 <!DOCTYPE html>
