@@ -67,12 +67,7 @@ public class SyainJouhouAllDAO extends DBConnection{
 	}finally{
 		//データベース切断
 		if(conn != null){
-			try{
-				conn.close();
-			}catch(SQLException e){
-				e.printStackTrace();
-				return null;
-			}
+			super.closeDB(conn);
 		}
 	}
 	return syainJouhouAllList;

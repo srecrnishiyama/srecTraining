@@ -8,6 +8,7 @@ import beans.Const.DBConst;
 
 public class DBConnection {
 	
+	//DB読み込み用メソッド
 	public static void loadJDBCDriver(){
 		//JDBCドライバを読み込み
 		try {
@@ -17,6 +18,7 @@ public class DBConnection {
 		}
 	}
 	
+	//DB接続用メソッド
 	public static Connection connectionDB(Connection conn){
 		//データベースへ接続
 		try {
@@ -28,6 +30,7 @@ public class DBConnection {
 		return conn;
 	}
 	
+	//DB切断用メソッド
 	public static void closeDB(Connection conn){
 		//データベース切断
 		if(conn != null){
