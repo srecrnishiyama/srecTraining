@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ログイン画面</title>
 </head>
+
 <body>
 
 <h1>ログインIDとパスワードを入力してください。</h1>
@@ -13,7 +14,7 @@
 <form action="<%= request.getContextPath() %>/IndexAction" method="post">
 
 <p>ID:  <input type="text" name="id"></p>
-<p>PASS:<input type="text" name="password"></p>
+<p>PASS:<input type="password" name="password"></p>
 
 <p><input type="submit" name="login" value="ログイン"></p>
 

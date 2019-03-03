@@ -4,8 +4,6 @@
 <%@ page import="beans.Const.Path" %>
 
 <%
-	//リクエストスコープに保存されたユーザー情報を取得
-	//List<SyainSeibetsuEntity> syainSeibetsuEntityList = (List<SyainSeibetsuEntity>)request.getAttribute(Path.SEIBETSU_SCOPE);
 	//セッションスコープに保存されたユーザー情報を取得
 	List<SyainSeibetsuEntity> syainSeibetsuEntityList = (List<SyainSeibetsuEntity>)request.getAttribute("session");
 %>
@@ -13,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<%@ include file="../header.jsp"%>
 <title>選択結果</title>
 </head>
 <body>
@@ -30,7 +28,7 @@
 <% }%>
 
 </table>
- 
+
 <p>
 <a href="/SyainKanriApp/index.jsp">戻る</a>
 </p>

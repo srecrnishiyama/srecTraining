@@ -4,8 +4,7 @@
 <%@ page import="beans.Const.Path" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
+<%@ include file="header.jsp"%>
 <title>メイン画面</title>
 </head>
 <body>
