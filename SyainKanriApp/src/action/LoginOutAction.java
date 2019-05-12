@@ -34,6 +34,7 @@ public class LoginOutAction extends HttpServlet {
 		//セッションを破棄
 		HttpSession session = request.getSession();
 		session.removeAttribute(Path.SESSION_SCOPE_NAME);
+		session.invalidate();
 
 		//ログイン画面に遷移
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Path.LOGIN_GAMEN);

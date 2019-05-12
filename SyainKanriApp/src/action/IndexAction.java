@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Const.Common;
+import beans.Const.ERRORMSG;
 import beans.Const.Path;
 import beans.SessionKanriBean;
 import control.CheckLogin;
@@ -20,85 +21,99 @@ import control.CheckLogin;
  */
 @WebServlet("/IndexAction")
 public class IndexAction extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public IndexAction() {
-		super();
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public IndexAction() {
+        super();
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
 
-		String id;
-		String password;
+        //セッションを破棄
+        HttpSession session = request.getSession();
+        session.invalidate();
 
-		id = request.getParameter("id");
-		password = request.getParameter("password");
+        String id;
+        String password;
 
-		// IDが入力されていない場合、エラー画面に遷移
-		if (id == null || "".equals(id)) {
-			// エラー画面に遷移
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
-			dispatcher.forward(request, response);
-			return;
-		}
+        id = request.getParameter("id");
+        password = request.getParameter("password");
 
-		// パスワードが入力されていない場合、エラー画面に遷移
-		if (password == null || "".equals(password)) {
-			// エラー画面に遷移
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
-			dispatcher.forward(request, response);
-			return;
-		}
+        // IDが入力されていない場合、エラー画面に遷移
+        if (id == null || "".equals(id)) {
+            //エラーメッセージを格納
+            request.setAttribute("ERRMSG", ERRORMSG.ERR_1);
+            // エラー画面に遷移
+            RequestDispatcher dispatcher = request
+                    .getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
+            dispatcher.forward(request, response);
+            return;
+        }
 
-		boolean errorFlg; // ログインIDパスワード存在チェック用 true = 存在 false = 存在しない
+        // パスワードが入力されていない場合、エラー画面に遷移
+        if (password == null || "".equals(password)) {
+            //エラーメッセージを格納
+            request.setAttribute("ERRMSG", ERRORMSG.ERR_2);
+            // エラー画面に遷移
+            RequestDispatcher dispatcher = request
+                    .getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
+            dispatcher.forward(request, response);
+            return;
+        }
 
-		CheckLogin checkLogin = new CheckLogin();
+        boolean errorFlg; // ログインIDパスワード存在チェック用 true = 存在 false = 存在しない
 
-		errorFlg = checkLogin.checkLoginId(id);
+        CheckLogin checkLogin = new CheckLogin();
 
-		// ログインIDが存在しない場合はエラー画面に遷移
-		if (errorFlg == false) {
-			// エラー画面に遷移
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
-			dispatcher.forward(request, response);
-		}
+        errorFlg = checkLogin.checkLoginId(id);
 
-		errorFlg = checkLogin.checkLoginIdAndPassword(id, password);
+        // ログインIDが存在しない場合はエラー画面に遷移
+        if (errorFlg == false) {
+            //エラーメッセージを格納
+            request.setAttribute("ERRMSG", ERRORMSG.ERR_3);
+            // エラー画面に遷移
+            RequestDispatcher dispatcher = request
+                    .getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
+            dispatcher.forward(request, response);
+        }
 
-		// ログインIDとパスワードが一致しない場合はエラー画面に遷移
-		if (errorFlg == false) {
-			// エラー画面に遷移
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
-			dispatcher.forward(request, response);
-		} else {
-			// セッション情報を格納
-			SessionKanriBean sessionKanriBean = new SessionKanriBean(id, password);
-			
-			// セッション情報の文字化け対策
-			request.setCharacterEncoding(Common.ENCODE_UTF8);
-			// セッション情報の取得
-			HttpSession httpSession = request.getSession();
-			// セッションスコープにログイン情報を保存
-			httpSession.setAttribute(Path.SESSION_SCOPE_NAME, sessionKanriBean);
+        errorFlg = checkLogin.checkLoginIdAndPassword(id, password);
 
-			// メイン画面に遷移
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher(Path.MAIN_GAMEN);
-			dispatcher.forward(request, response);
-		}
-	}
+        // ログインIDとパスワードが一致しない場合はエラー画面に遷移
+        if (errorFlg == false) {
+            //エラーメッセージを格納
+            request.setAttribute("ERRMSG", ERRORMSG.ERR_4);
+            // エラー画面に遷移
+            RequestDispatcher dispatcher = request
+                    .getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
+            dispatcher.forward(request, response);
+        } else {
+            //ユーザー名と管理者権限を取得
+
+            // セッション情報を格納
+            SessionKanriBean sessionKanriBean = new SessionKanriBean(id, password);
+
+            // セッション情報の文字化け対策
+            request.setCharacterEncoding(Common.ENCODE_UTF8);
+            // セッション情報の取得
+            HttpSession httpSession = request.getSession();
+            // セッションスコープにログイン情報を保存
+            httpSession.setAttribute(Path.SESSION_SCOPE_NAME, sessionKanriBean);
+
+            // メイン画面に遷移
+            RequestDispatcher dispatcher = request
+                    .getRequestDispatcher(Path.MAIN_GAMEN);
+            dispatcher.forward(request, response);
+        }
+    }
 
 }

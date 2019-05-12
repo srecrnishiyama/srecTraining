@@ -1,7 +1,7 @@
 package beans;
 
 public class Const {
-	
+
 	//共通
 	public static final class Common{
 
@@ -23,6 +23,15 @@ public class Const {
 		public static final String SEIBETSU_PATH = "/WEB-INF/ResultSyainJouhouSeibetsu.jsp";
 		public static final String SEIBETSU_SCOPE = "syainSeibetsuEntityList";
 
+	}
+
+	//エラー関連
+	public static final class ERRORMSG {
+	    public static final String ERR_1 = "IDを入力してください";
+	    public static final String ERR_2 = "パスワードを入力してください";
+	    public static final String ERR_3 = "入力されたIDは存在しません";
+	    public static final String ERR_4 = "パスワードが違います";
+	    public static final String ERR_5 = "この操作には管理者権限が必要です";
 	}
 
 }

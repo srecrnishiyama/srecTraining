@@ -17,8 +17,9 @@ public class DBConnection {
 		Properties properties = new Properties();
 
 		try {
-			InputStream inStream = new FileInputStream("DBAccess.properties");
+			InputStream inStream = new FileInputStream("C:\\DBAccess.properties");
 			properties.load(inStream);
+//			properties.load(new FileInputStream("DBAccess.properties"));
 
 			final String DRIVER_NAME = properties.getProperty("drivername");
 
@@ -39,8 +40,9 @@ public class DBConnection {
 		Properties properties = new Properties();
 
 		try {
-			InputStream inStream = new FileInputStream("DBAccess.properties");
+			InputStream inStream = new FileInputStream("C:\\DBAccess.properties");
 			properties.load(inStream);
+//			properties.load(new FileInputStream("DBAccess.properties"));
 
 			final String JDBC_URL = properties.getProperty("jdbcurl");
 			final String DB_USER = properties.getProperty("username");

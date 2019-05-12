@@ -1,6 +1,7 @@
 package action;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.Const.ERRORMSG;
 import beans.Const.Path;
 import beans.SessionKanriBean;
 import beans.SyainJouhouAllEntity;
+import control.IndexDAO;
 import control.SyainJouhouAllDAO;
 
 @WebServlet("/SyainJouhouAllAction")
@@ -42,6 +45,27 @@ public class SyainJouhouAllAction extends HttpServlet {
 			// ログインしていない場合リダイレクト
 			response.sendRedirect(request.getContextPath() + Path.LOGIN_GAMEN);
 		} else {
+
+		    //該当IDの管理者フラグを呼び出す
+		    List<String> resultList = new ArrayList<String>();
+		    String kanriFlg = null;
+
+		    IndexDAO indexDAO = new IndexDAO();
+
+		    resultList = indexDAO.getSessionInfo(sessionKanriBean.getLoginId(), sessionKanriBean.getLoginPassword());
+
+		    kanriFlg = resultList.get(2);
+
+		    //管理フラグがFALSEの場合、管理者権限ではないためシステムエラー画面に遷移させる
+		    if(!kanriFlg.equals("1")) {
+	            //エラーメッセージを格納
+	            request.setAttribute("ERRMSG", ERRORMSG.ERR_5);
+	            // エラー画面に遷移
+	            RequestDispatcher dispatcher = request
+	                    .getRequestDispatcher(Path.SYSTEM_ERROR_GAMEN);
+	            dispatcher.forward(request, response);
+		    }
+
 			// セッションスコープにインスタンスを保存
 			SyainJouhouAllDAO syainJouhouAllDAO = new SyainJouhouAllDAO();
 			List<SyainJouhouAllEntity> syainJouhouAllEntityList = syainJouhouAllDAO
